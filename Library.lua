@@ -990,34 +990,39 @@ function Library:RemoveFromRegistry(Instance)
     Library.Registry[Instance] = nil
 end
 
- function Library:UpdateColorsUsingRegistry()
-    local speedFactor = 0.25
-    
+ 
+
+function Library:UpdateColorsUsingRegistry()
     for Instance, Properties in pairs(Library.Registry) do
         for Property, ColorIdx in pairs(Properties) do
             if typeof(ColorIdx) == "string" then
                 if ColorIdx == "BackgroundColor" then
-                    Instance[Property] = Color3.fromHSV((tick() * speedFactor) % 1, 0.8, 0.15)
+                    Instance[Property] = Color3.fromHSV((tick() * 0.3) % 1, 0.8, 0.15)
                 elseif ColorIdx == "MainColor" then
-                    Instance[Property] = Color3.fromHSV((tick() * speedFactor) % 1, 0.8, 0.25)
+                    Instance[Property] = Color3.fromHSV((tick() * 0.3) % 1, 0.8, 0.25)
                 elseif ColorIdx == "AccentColor" then
-                    Instance[Property] = Color3.fromHSV((tick() * speedFactor * 1.5) % 1, 0.8, 1)
+                    Instance[Property] = Color3.fromHSV((tick() * 0.5) % 1, 0.8, 1)
                 elseif ColorIdx == "OutlineColor" then
-                    Instance[Property] = Color3.fromHSV((tick() * speedFactor) % 1, 0.8, 0.4)
+                    Instance[Property] = Color3.fromHSV((tick() * 0.3) % 1, 0.8, 0.4)
                 elseif ColorIdx == "FontColor" then
-                    Instance[Property] = Color3.fromHSV((tick() * speedFactor * 1.5) % 1, 0.8, 1)
+                    Instance[Property] = Color3.fromHSV((tick() * 0.5) % 1, 0.8, 1)
                 elseif ColorIdx == "Red" then
-                    Instance[Property] = Color3.fromHSV((tick() * speedFactor * 0.8) % 1, 0.9, 1)
+                    Instance[Property] = Color3.fromHSV((tick() * 0.2) % 1, 0.9, 1)
                 elseif ColorIdx == "Dark" then
-                    Instance[Property] = Color3.fromHSV((tick() * speedFactor * 1.2) % 1, 0.8, 0.1)
+                    Instance[Property] = Color3.fromHSV((tick() * 0.4) % 1, 0.8, 0.1)
                 elseif ColorIdx == "White" then
-                    Instance[Property] = Color3.fromHSV((tick() * speedFactor * 0.5) % 1, 0, 1)
+                    Instance[Property] = Color3.fromHSV((tick() * 0.1) % 1, 0, 1)
                 else
                     Instance[Property] = Library.Scheme[ColorIdx]
                 end
+            elseif typeof(ColorIdx) == "function" then
+                Instance[Property] = ColorIdx()
+            end
         end
     end
 end
+
+
 
 
 function Library:StartRainbowEffect()
